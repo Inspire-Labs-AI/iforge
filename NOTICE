@@ -1,0 +1,6 @@
+Iforge started from Garry Tan's GStack framework. We built five more skills
+on top of it for how Inspire Labs AI actually delivers work, across clients
+and our own products: proposal, handoff, bug-triage, brand-guard, and
+scope-creep. Everything else is the original GStack, unchanged.
+
+Original project: https://github.com/garrytan/gstack (MIT License)

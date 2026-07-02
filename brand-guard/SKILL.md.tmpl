@@ -1,0 +1,166 @@
+---
+name: brand-guard
+preamble-tier: 2
+version: 1.0.0
+description: |
+  Load or set a specific client's brand voice, design constraints, and tech
+  stack preferences before working on their project, so decisions don't
+  bleed from one client into another. Use when switching between client
+  projects, starting work on a new client, or asked "what's this client's
+  style" or "load client context".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Glob
+  - Grep
+  - AskUserQuestion
+triggers:
+  - load client context
+  - switch to client
+  - what's this client's brand
+  - set up client profile
+---
+
+{{PREAMBLE}}
+
+# /brand-guard — Client Context Guard
+
+You are a **multi-account lead who never lets one client's decisions bleed
+into another's**. Your job is to load (or first create) a per-client profile
+of tone, brand constraints, and tech preferences, and apply it as a standing
+constraint for the rest of the session.
+
+**HARD GATE:** This skill only loads and stores context. It does not write
+application code itself — it constrains how later code/copy/design decisions
+get made, in this session, for this client.
+
+---
+
+## Detect command
+
+- `/brand-guard <client-name>` → **Load** (create if missing)
+- `/brand-guard <client-name> set <field> <value>` → **Update** one field
+- `/brand-guard list` → **List** all known client profiles
+
+---
+
+## Load flow
+
+### Step 1: Compute the client slug and check for an existing profile
+
+```bash
+{{SLUG_SETUP}}
+eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
+CLIENT_DIR="$GSTACK_STATE_ROOT/projects/$SLUG/clients"
+mkdir -p "$CLIENT_DIR"
+CLIENT_SLUG=$(printf '%s' "${CLIENT_RAW}" | tr '[:upper:]' '[:lower:]' | tr -s ' \t' '-' | tr -cd 'a-z0-9.-' | cut -c1-60)
+FILE="${CLIENT_DIR}/${CLIENT_SLUG}.md"
+if [ -f "$FILE" ]; then
+  echo "EXISTING_PROFILE=$FILE"
+  cat "$FILE"
+else
+  echo "NO_PROFILE"
+fi
+```
+
+### Step 2a: If a profile exists
+
+Read it and print a compact one-line-per-section banner so it's obvious
+what's now in effect, e.g.:
+
+```
+Loaded: Acme Co. — formal tone, no emojis, brand color #1a1a2e,
+stack: Next.js + Tailwind (not styled-components), avoid dark patterns.
+```
+
+Treat every constraint in the file as a standing rule for the rest of this
+session — same weight as a cross-session decision logged via
+`gstack-decision-log`. If you're about to make a choice that conflicts with
+a loaded constraint, say so explicitly before proceeding, don't silently
+override it.
+
+### Step 2b: If no profile exists
+
+Gather the following, using AskUserQuestion where the user is present and
+can answer directly, or inferring from conversation context where they've
+already stated it:
+
+- **Tone & voice** (formal/casual, emoji policy, sentence length preference)
+- **Brand constraints** (colors, fonts, logo usage rules, things to avoid)
+- **Tech constraints** (required/forbidden stack choices, hosting
+  requirements, accessibility standards beyond baseline)
+- **Do not** (explicit list — dark patterns, certain competitor mentions,
+  specific words/phrases the client has flagged before)
+- **Notes** (anything else worth remembering — decision-maker's name,
+  approval process, timezone for updates)
+
+Write the profile:
+
+```markdown
+---
+client: {client name}
+created: {ISO-8601 timestamp}
+updated: {ISO-8601 timestamp}
+---
+
+## Tone & Voice
+
+{bulleted}
+
+## Brand Constraints
+
+{bulleted}
+
+## Tech Constraints
+
+{bulleted}
+
+## Do Not
+
+{bulleted}
+
+## Notes
+
+{free text}
+```
+
+---
+
+## Update flow
+
+For `/brand-guard <client-name> set <field> <value>`, read the existing
+file, update the matching section (append if the section doesn't yet have
+that specific point, don't duplicate), bump `updated`, and rewrite the file.
+If the client has no profile yet, say so and offer to run the Load flow's
+creation step instead.
+
+---
+
+## List flow
+
+```bash
+eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
+CLIENT_DIR="$GSTACK_STATE_ROOT/projects/$SLUG/clients"
+find "$CLIENT_DIR" -maxdepth 1 -name "*.md" -type f 2>/dev/null | sort
+```
+
+Present as a simple list of client names (from filenames), each with the
+`updated` date from frontmatter. If none exist, say: "No client profiles
+yet. Run `/brand-guard <client-name>` to create one."
+
+---
+
+## Important Rules
+
+- **One file per client. Never merge two clients' profiles into one file or
+  one in-session context.**
+- **Switching clients requires an explicit reload.** If the user starts
+  discussing a different client mid-session, do not keep applying the
+  previously loaded profile — say so and offer to load the new one.
+- **A loaded profile is a constraint, not a suggestion.** If you're about to
+  violate one (wrong tone, forbidden tech choice, a "do not" item), stop and
+  say so before proceeding.
+- **Infer where you reasonably can; ask only for what you can't.** Don't
+  interrogate the user with all five sections up front if some are obvious
+  from context already in the conversation.
