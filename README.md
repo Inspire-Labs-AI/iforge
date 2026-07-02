@@ -1,15 +1,21 @@
 <div align="center">
 
-# IFORGE
+```
+██╗███████╗ ██████╗ ██████╗  ██████╗ ███████╗
+██║██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
+██║█████╗  ██║   ██║██████╔╝██║  ███╗█████╗
+██║██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝
+██║██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗
+╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+```
 
-### Claude Code, run as a disciplined engineering team
+### Claude Code, run as a disciplined engineering team.
 
-<p>
-  <img src="https://img.shields.io/badge/license-MIT-2b2d42?style=for-the-badge&labelColor=000000" alt="License: MIT"/>
-  <img src="https://img.shields.io/badge/free-open%20source-2b2d42?style=for-the-badge&labelColor=000000" alt="Free & Open Source"/>
-  <img src="https://img.shields.io/badge/built%20on-GStack-2b2d42?style=for-the-badge&labelColor=000000" alt="Built on GStack"/>
-  <img src="https://img.shields.io/badge/interface-slash%20commands-2b2d42?style=for-the-badge&labelColor=000000" alt="Slash Commands"/>
-</p>
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Free & Open Source](https://img.shields.io/badge/free-open%20source-brightgreen.svg)](#license)
+[![Built on GStack](https://img.shields.io/badge/built%20on-GStack-orange.svg)](#docs)
+[![Slash Commands](https://img.shields.io/badge/interface-slash%20commands-blueviolet.svg)](#the-sprint)
+[![Markdown](https://img.shields.io/badge/skills-100%25%20Markdown-lightgrey.svg)](#the-sprint)
 
 </div>
 
