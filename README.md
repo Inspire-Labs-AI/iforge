@@ -87,7 +87,42 @@ Only works in **Git Bash** or **WSL**. On Windows, do not use Command Prompt or 
 rm -rf ~/.claude/skills/gstack ~/'~'
 ```
 
-**Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Renaming it would mean rewriting hundreds of internal references for no user-facing benefit, so we kept it. Both names are correct — this is expected, not a bug.
+**Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Both names are correct — this is expected, not a bug.
+
+### What actually gets created — read this before you go looking around
+
+Installing creates **two different things**. This is normal, not a bug — but
+it confuses people who go poking around the folders afterward, so know it
+upfront:
+
+1. **`~/.claude/skills/gstack/`** — the full source: the browser engine,
+   build scripts, and every skill's original files, all nested inside this
+   one folder. Claude Code does **not** read skills from here directly.
+2. **`~/.claude/skills/<skill-name>/`** — one flat folder per skill, sitting
+   *next to* `gstack/`, not inside it — e.g. `~/.claude/skills/proposal/`,
+   `~/.claude/skills/office-hours/`. `./setup` creates these automatically.
+   **This is what Claude Code actually scans** for the `/` dropdown.
+
+So after a successful install, your `~/.claude/skills/` folder looks like this:
+
+```
+~/.claude/skills/
+├── gstack/              ← full source, don't touch its contents directly
+│   ├── proposal/        ← the original copy lives here too
+│   ├── office-hours/
+│   └── ... (bin/, browse/, scripts/, and everything else)
+├── proposal/             ← Claude Code reads THIS one
+├── office-hours/         ← and THIS one
+└── ... (one flat folder per skill)
+```
+
+**Never manually move, cut, copy, or delete anything inside `gstack/`.**
+`./setup` creates and refreshes every flat folder above automatically, every
+time it runs — there is no manual step here. Moving files out of `gstack/`
+by hand removes them from the source repo (a "move" deletes the original),
+which corrupts the install and causes exactly the kind of build errors
+covered in [Troubleshooting](#troubleshooting). If a skill isn't showing up,
+the fix is always to re-run `./setup`, never to move files yourself.
 
 ### Team mode — auto-update for shared repos (recommended)
 
