@@ -24,9 +24,23 @@ MIT licensed.
 - **First-time Claude Code users** — structured roles instead of a blank prompt
 - **Tech leads and staff engineers** — rigorous review, QA, and release automation on every PR
 
+## Contents
+
+- [Quick start](#quick-start)
+- [Install](#install)
+- [See it work](#see-it-work)
+- [The sprint](#the-sprint) — full skill reference
+- [Client & delivery skills](#client--delivery-skills-added-by-inspire-labs-ai)
+- [Uninstall](#uninstall)
+- [GBrain](#gbrain--persistent-knowledge-for-your-coding-agent)
+- [Docs](#docs)
+- [Privacy & Telemetry](#privacy--telemetry)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+
 ## Quick start
 
-1. Install Iforge (30 seconds — see below)
+1. Install Iforge (see below)
 2. Run `/office-hours` — describe what you're building
 3. Run `/proposal` if this is client work, to scope it before anything else
 4. Run `/plan-ceo-review` on any feature idea
@@ -35,19 +49,47 @@ MIT licensed.
 7. Run `/handoff` to draft the client-facing update
 8. Stop there. You'll know if this is for you.
 
-## Install — 30 seconds
+## Install
 
 **Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Git](https://git-scm.com/), [Bun](https://bun.sh/) v1.0+, [Node.js](https://nodejs.org/) (Windows only)
 
-### Step 1: Install on your machine
+> **Windows users, read this before you start:** the installer is a shell script.
+> It runs correctly two ways — through **Claude Code** (Method A) on any OS, or
+> typed directly into **Git Bash / WSL** (Method B). It will **not** run in
+> Command Prompt or plain PowerShell — those can't execute shell scripts, and
+> `./setup` will fail with `'.' is not recognized as an internal or external
+> command`. If you hit that error, you're in the wrong shell — see Method B.
 
-Open Claude Code and paste this. Claude does the rest.
+### Method A — let Claude Code install it (works on any OS, no terminal needed)
+
+1. Open Claude Code.
+2. Paste the message below exactly as-is. Claude runs the install and configures itself.
 
 > Install Iforge: run **`git clone --single-branch --depth 1 https://github.com/Inspire-Labs-AI/iforge.git ~/.claude/skills/gstack && cd ~/.claude/skills/gstack && ./setup`** then add a "gstack" section to CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, and lists the available skills: /office-hours, /proposal, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /design-shotgun, /design-html, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /connect-chrome, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /setup-gbrain, /retro, /investigate, /document-release, /document-generate, /codex, /cso, /autoplan, /plan-devex-review, /devex-review, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade, /learn, /handoff, /bug-triage, /brand-guard, /scope-creep. Then ask the user if they also want to add it to the current project so teammates get it.
 
-> **Note:** the clone target is `~/.claude/skills/gstack` on purpose — that path is baked into every skill's internal scripts. Renaming it would mean touching hundreds of internal references for no user-facing benefit, so we left it as-is. The repo is `iforge`; the installed folder is `gstack`. Both are correct.
+3. Once it finishes, type `/` in Claude Code and confirm the skills show up in the dropdown.
 
-### Step 2: Team mode — auto-update for shared repos (recommended)
+### Method B — install it yourself from a terminal
+
+Only works in **Git Bash** or **WSL**. On Windows, do not use Command Prompt or plain PowerShell — see the warning above.
+
+1. Open Git Bash (Windows: search "Git Bash" in the Start menu, or right-click any folder in File Explorer → "Git Bash Here") or your regular terminal on macOS/Linux/WSL.
+2. Run these three commands:
+   ```bash
+   git clone --single-branch --depth 1 https://github.com/Inspire-Labs-AI/iforge.git ~/.claude/skills/gstack
+   cd ~/.claude/skills/gstack
+   ./setup
+   ```
+3. Open Claude Code, type `/`, and confirm the skills show up in the dropdown.
+
+**If you already tried this in Command Prompt or PowerShell and it failed:** it likely created a stray folder literally named `~` instead of using your real home folder. Clean it up first, then retry in Git Bash:
+```bash
+rm -rf ~/.claude/skills/gstack ~/'~'
+```
+
+**Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Renaming it would mean rewriting hundreds of internal references for no user-facing benefit, so we kept it. Both names are correct — this is expected, not a bug.
+
+### Team mode — auto-update for shared repos (recommended)
 
 From inside your repo, paste this. Switches you to team mode, bootstraps the repo so teammates get it automatically, and commits the change:
 
@@ -318,7 +360,7 @@ Usage telemetry is **opt-in** and off by default. What's sent (if you opt in): s
 
 **Stale install?** Run `/gstack-upgrade` — or set `auto_upgrade: true` in `~/.gstack/config.yaml`
 
-**Windows users:** works on Windows 11 via Git Bash or WSL. Node.js is required in addition to Bun. Make sure both `bun` and `node` are on your PATH.
+**Windows users:** see the callout at the top of [Install](#install) — Git Bash or WSL only, not Command Prompt or PowerShell. Node.js is required in addition to Bun. Make sure both `bun` and `node` are on your PATH.
 
 **Claude says it can't see the skills?** Make sure your project's `CLAUDE.md` has a section listing available skills, including `/proposal`, `/handoff`, `/bug-triage`, `/brand-guard`, `/scope-creep`.
 
