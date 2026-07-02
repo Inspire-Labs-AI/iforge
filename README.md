@@ -1,4 +1,25 @@
-# Iforge
+<div align="center">
+
+```
+██╗███████╗ ██████╗ ██████╗  ██████╗ ███████╗
+██║██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
+██║█████╗  ██║   ██║██████╔╝██║  ███╗█████╗
+██║██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝
+██║██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗
+╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+```
+
+### Claude Code, run as a disciplined engineering team.
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Free & Open Source](https://img.shields.io/badge/free-open%20source-brightgreen.svg)](#license)
+[![Built on GStack](https://img.shields.io/badge/built%20on-GStack-orange.svg)](#docs)
+[![Slash Commands](https://img.shields.io/badge/interface-slash%20commands-blueviolet.svg)](#the-sprint)
+[![Markdown](https://img.shields.io/badge/skills-100%25%20Markdown-lightgrey.svg)](#the-sprint)
+
+</div>
+
+<br>
 
 **Iforge turns Claude Code into a disciplined engineering team** — a CEO who
 rethinks the product, an eng manager who locks architecture, a designer who
@@ -24,21 +45,36 @@ MIT licensed.
 - **First-time Claude Code users** — structured roles instead of a blank prompt
 - **Tech leads and staff engineers** — rigorous review, QA, and release automation on every PR
 
-## Contents
+<br>
 
-- [Quick start](#quick-start)
-- [Install](#install)
-- [See it work](#see-it-work)
-- [The sprint](#the-sprint) — full skill reference
-- [Client & delivery skills](#client--delivery-skills-added-by-inspire-labs-ai)
-- [Uninstall](#uninstall)
-- [GBrain](#gbrain--persistent-knowledge-for-your-coding-agent)
-- [Docs](#docs)
-- [Privacy & Telemetry](#privacy--telemetry)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
+## 📖 Contents
 
-## Quick start
+<table>
+<tr>
+<td valign="top" width="50%">
+
+- [🚀 Quick start](#-quick-start)
+- [⚙️ Install](#️-install)
+- [👀 See it work](#-see-it-work)
+- [🧭 The sprint](#-the-sprint) — full skill reference
+- [🤝 Client & delivery skills](#-client--delivery-skills-added-by-inspire-labs-ai)
+
+</td>
+<td valign="top" width="50%">
+
+- [🧹 Uninstall](#-uninstall)
+- [🧠 GBrain](#-gbrain--persistent-knowledge-for-your-coding-agent)
+- [📚 Docs](#-docs)
+- [🔒 Privacy & Telemetry](#-privacy--telemetry)
+- [🛠️ Troubleshooting](#️-troubleshooting)
+
+</td>
+</tr>
+</table>
+
+<br>
+
+## 🚀 Quick start
 
 1. Install Iforge (see below)
 2. Run `/office-hours` — describe what you're building
@@ -49,10 +85,13 @@ MIT licensed.
 7. Run `/handoff` to draft the client-facing update
 8. Stop there. You'll know if this is for you.
 
-## Install
+<br>
+
+## ⚙️ Install
 
 **Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Git](https://git-scm.com/), [Bun](https://bun.sh/) v1.0+, [Node.js](https://nodejs.org/) (Windows only)
 
+> [!WARNING]
 > **Windows users, read this before you start:** the installer is a shell script.
 > It runs correctly two ways — through **Claude Code** (Method A) on any OS, or
 > typed directly into **Git Bash / WSL** (Method B). It will **not** run in
@@ -82,14 +121,21 @@ Only works in **Git Bash** or **WSL**. On Windows, do not use Command Prompt or 
    ```
 3. Open Claude Code, type `/`, and confirm the skills show up in the dropdown.
 
-**If you already tried this in Command Prompt or PowerShell and it failed:** it likely created a stray folder literally named `~` instead of using your real home folder. Clean it up first, then retry in Git Bash:
-```bash
-rm -rf ~/.claude/skills/gstack ~/'~'
-```
+> [!TIP]
+> **If you already tried this in Command Prompt or PowerShell and it failed:** it likely created a stray folder literally named `~` instead of using your real home folder. Clean it up first, then retry in Git Bash:
+> ```bash
+> rm -rf ~/.claude/skills/gstack ~/'~'
+> ```
 
-**Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Both names are correct — this is expected, not a bug.
+> [!NOTE]
+> **Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Both names are correct — this is expected, not a bug.
 
-### What actually gets created — read this before you go looking around
+<br>
+
+<details>
+<summary><strong>📂 What actually gets created — read this before you go looking around</strong></summary>
+
+<br>
 
 Installing creates **two different things**. This is normal, not a bug — but
 it confuses people who go poking around the folders afterward, so know it
@@ -116,13 +162,18 @@ So after a successful install, your `~/.claude/skills/` folder looks like this:
 └── ... (one flat folder per skill)
 ```
 
-**Never manually move, cut, copy, or delete anything inside `gstack/`.**
-`./setup` creates and refreshes every flat folder above automatically, every
-time it runs — there is no manual step here. Moving files out of `gstack/`
-by hand removes them from the source repo (a "move" deletes the original),
-which corrupts the install and causes exactly the kind of build errors
-covered in [Troubleshooting](#troubleshooting). If a skill isn't showing up,
-the fix is always to re-run `./setup`, never to move files yourself.
+> [!CAUTION]
+> **Never manually move, cut, copy, or delete anything inside `gstack/`.**
+> `./setup` creates and refreshes every flat folder above automatically, every
+> time it runs — there is no manual step here. Moving files out of `gstack/`
+> by hand removes them from the source repo (a "move" deletes the original),
+> which corrupts the install and causes exactly the kind of build errors
+> covered in [Troubleshooting](#️-troubleshooting). If a skill isn't showing up,
+> the fix is always to re-run `./setup`, never to move files yourself.
+
+</details>
+
+<br>
 
 ### Team mode — auto-update for shared repos (recommended)
 
@@ -158,9 +209,11 @@ Or target a specific agent with `./setup --host <name>`:
 | Hermes | `--host hermes` | `~/.hermes/skills/gstack-*/` |
 | GBrain (mod) | `--host gbrain` | `~/.gbrain/skills/gstack-*/` |
 
-## See it work
+<br>
 
-```
+## 👀 See it work
+
+```text
 You:    We need a loyalty rewards page for a client's e-commerce site.
 You:    /proposal
 Claude: [drafts deliverables, an explicit out-of-scope list, timeline,
@@ -200,11 +253,38 @@ Claude: Out of scope — flagged as a future addition in the original
 
 Client work goes in scoped, tracked, and communicated — not absorbed silently until the margin disappears.
 
-## The sprint
+<br>
+
+## 🧭 The sprint
 
 Iforge is a process, not a collection of tools. The skills run in the order a sprint runs:
 
 **Scope → Think → Plan → Build → Review → Test → Ship → Communicate → Reflect**
+
+```mermaid
+flowchart LR
+    A["🎯 Scope<br/><code>/proposal</code>"] --> B["🧠 Think<br/><code>/office-hours</code>"]
+    B --> C["📐 Plan<br/><code>/plan-ceo-review</code><br/><code>/plan-eng-review</code><br/><code>/plan-design-review</code>"]
+    C --> D["🔨 Build"]
+    D --> E["🔍 Review<br/><code>/review</code>"]
+    E --> F["🧪 Test<br/><code>/qa</code>"]
+    F --> G["🚀 Ship<br/><code>/ship</code>"]
+    G --> H["📣 Communicate<br/><code>/handoff</code>"]
+    H --> I["♻️ Reflect<br/><code>/retro</code>"]
+    I -.->|"next ask?"| J["🚧 Scope-creep check<br/><code>/scope-creep</code>"]
+    J -.-> A
+
+    style A fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style B fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style C fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style D fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style E fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style F fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style G fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style H fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style I fill:#2b2d42,stroke:#8d99ae,color:#fff
+    style J fill:#ef233c,stroke:#8d99ae,color:#fff
+```
 
 Each skill feeds into the next. `/proposal` writes the out-of-scope list that `/scope-creep` checks later asks against. `/office-hours` writes a design doc that `/plan-ceo-review` reads. `/plan-eng-review` writes a test plan that `/qa` picks up. `/review` catches bugs that `/ship` verifies are fixed. `/handoff` closes the loop with whoever's paying for the work.
 
@@ -239,7 +319,7 @@ Each skill feeds into the next. `/proposal` writes the out-of-scope list that `/
 | `/spec` | **Spec Author** | Turn vague intent into a precise, executable spec in five phases. |
 | `/learn` | **Memory** | Manage what Iforge learned across sessions — patterns, pitfalls, and preferences, per project. |
 
-### Client & delivery skills (added by Inspire Labs AI)
+### 🤝 Client & delivery skills (added by Inspire Labs AI)
 
 GStack's pipeline is built for one person shipping one product — it has no
 step for the part where a client is involved. These five fill that gap:
@@ -278,13 +358,18 @@ step for the part where a client is involved. These five fill that gap:
 | `/ios-qa` | **iOS Live-Device QA** — drive a real iPhone over USB CoreDevice. |
 | `/ios-fix`, `/ios-design-review`, `/ios-clean`, `/ios-sync` | iOS bug-fix loop, designer's-eye HIG audit, debug-bridge cleanup, and accessor resync. |
 
-**[Deep dives with examples and philosophy for every skill →](docs/skills.md)**
+> [!TIP]
+> **[Deep dives with examples and philosophy for every skill →](docs/skills.md)**
 
-## Voice input (AquaVoice, Whisper, etc.)
+<br>
+
+## 🎙️ Voice input (AquaVoice, Whisper, etc.)
 
 Skills have voice-friendly trigger phrases. Say what you want naturally — "run a security check", "test the website", "check this against the proposal" — and the right skill activates. You don't need to remember slash command names.
 
-## Uninstall
+<br>
+
+## 🧹 Uninstall
 
 ### Option 1: Run the uninstall script
 
@@ -296,6 +381,7 @@ If Iforge is installed on your machine:
 
 This handles skills, symlinks, global state (`~/.gstack/`), project-local state, browse daemons, and temp files. Use `--keep-state` to preserve config and analytics. Use `--force` to skip confirmation.
 
+> [!WARNING]
 > **Known Windows gap:** this script only removes individual skill folders
 > (`office-hours`, `proposal`, `qa`, etc.) if they're **symlinks**. On Windows
 > without Developer Mode enabled, `./setup` installs them as plain **file
@@ -313,7 +399,8 @@ This handles skills, symlinks, global state (`~/.gstack/`), project-local state,
 > ```
 > Then fully restart Claude Code Desktop.
 
-### Option 2: Manual removal (no local repo)
+<details>
+<summary><strong>Option 2: Manual removal (no local repo) — click to expand full script</strong></summary>
 
 ```bash
 # 1. Stop browse daemons
@@ -353,17 +440,24 @@ rm -rf .gstack .gstack-worktrees .claude/skills/gstack 2>/dev/null
 rm -rf .agents/skills/gstack* .factory/skills/gstack* 2>/dev/null
 ```
 
-### Clean up CLAUDE.md
+</details>
 
-The uninstall script does not edit CLAUDE.md. In each project where it was added, remove the `## gstack` and `## Skill routing` sections.
+> [!NOTE]
+> **Clean up CLAUDE.md.** The uninstall script does not edit CLAUDE.md. In each project where it was added, remove the `## gstack` and `## Skill routing` sections.
 
 ---
 
-Free, MIT licensed, open source. No premium tier, no waitlist.
+<div align="center">
+
+**Free, MIT licensed, open source. No premium tier, no waitlist.**
 
 Built on GStack, extended by Inspire Labs AI. Fork it, improve it, make it yours — see [NOTICE](NOTICE) for full attribution.
 
-## GBrain — persistent knowledge for your coding agent
+</div>
+
+<br>
+
+## 🧠 GBrain — persistent knowledge for your coding agent
 
 [GBrain](https://github.com/garrytan/gbrain) is a persistent knowledge base for AI agents — think of it as the memory your agent actually keeps between sessions. Iforge inherits GStack's one-command path from zero to "it's running, my agent can call it."
 
@@ -384,9 +478,12 @@ Four paths, pick one:
 - `read-only` — agent can search but never writes (best for multi-client consultants: search the shared brain, don't contaminate it with Client A's work while in Client B's repo)
 - `deny` — no gbrain interaction at all
 
-**Full monty — every scenario, every flag, every bin helper, every troubleshooting step:** [USING_GBRAIN_WITH_GSTACK.md](USING_GBRAIN_WITH_GSTACK.md)
+> [!TIP]
+> **Full monty — every scenario, every flag, every bin helper, every troubleshooting step:** [USING_GBRAIN_WITH_GSTACK.md](USING_GBRAIN_WITH_GSTACK.md)
 
-## Docs
+<br>
+
+## 📚 Docs
 
 | Doc | What it covers |
 |-----|---------------|
@@ -398,24 +495,35 @@ Four paths, pick one:
 | [Changelog](CHANGELOG.md) | What's new in every version |
 | [NOTICE](NOTICE) | Full attribution — what's original GStack, what Inspire Labs AI added |
 
-## Privacy & Telemetry
+<br>
+
+## 🔒 Privacy & Telemetry
 
 Usage telemetry is **opt-in** and off by default. What's sent (if you opt in): skill name, duration, success/fail, version, OS. Never sent: code, file paths, repo names, branch names, prompts, or any user-generated content. Disable anytime with `gstack-config set telemetry off`.
 
 **Note on where telemetry goes:** this is inherited, unmodified GStack infrastructure — opted-in data flows to the original project's backend, not to Inspire Labs AI. We haven't stood up separate telemetry infrastructure for the added skills. If you want usage data on your own team's Iforge usage specifically, keep telemetry off and use the local-only dashboard instead: `gstack-analytics` reads your personal usage from a local JSONL file, no remote data involved.
 
-## Troubleshooting
+<br>
 
-**Skill not showing up?** `cd ~/.claude/skills/gstack && ./setup`
+## 🛠️ Troubleshooting
 
-**`/browse` fails?** `cd ~/.claude/skills/gstack && bun install && bun run build`
+| Symptom | Fix |
+|---|---|
+| Skill not showing up? | `cd ~/.claude/skills/gstack && ./setup` |
+| `/browse` fails? | `cd ~/.claude/skills/gstack && bun install && bun run build` |
+| Stale install? | Run `/gstack-upgrade` — or set `auto_upgrade: true` in `~/.gstack/config.yaml` |
+| Windows users | See the callout at the top of [Install](#️-install) — Git Bash or WSL only, not Command Prompt or PowerShell. Node.js is required in addition to Bun. Make sure both `bun` and `node` are on your PATH. |
+| Claude says it can't see the skills? | Make sure your project's `CLAUDE.md` has a section listing available skills, including `/proposal`, `/handoff`, `/bug-triage`, `/brand-guard`, `/scope-creep`. |
 
-**Stale install?** Run `/gstack-upgrade` — or set `auto_upgrade: true` in `~/.gstack/config.yaml`
+<br>
 
-**Windows users:** see the callout at the top of [Install](#install) — Git Bash or WSL only, not Command Prompt or PowerShell. Node.js is required in addition to Bun. Make sure both `bun` and `node` are on your PATH.
-
-**Claude says it can't see the skills?** Make sure your project's `CLAUDE.md` has a section listing available skills, including `/proposal`, `/handoff`, `/bug-triage`, `/brand-guard`, `/scope-creep`.
-
-## License
+## 📄 License
 
 MIT. Original work by Garry Tan (GStack); additional skills by Inspire Labs AI. Full attribution in [NOTICE](NOTICE).
+
+<div align="center">
+<br>
+
+**[⬆ Back to top](#-contents)**
+
+</div>
