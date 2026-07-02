@@ -261,6 +261,23 @@ If Iforge is installed on your machine:
 
 This handles skills, symlinks, global state (`~/.gstack/`), project-local state, browse daemons, and temp files. Use `--keep-state` to preserve config and analytics. Use `--force` to skip confirmation.
 
+> **Known Windows gap:** this script only removes individual skill folders
+> (`office-hours`, `proposal`, `qa`, etc.) if they're **symlinks**. On Windows
+> without Developer Mode enabled, `./setup` installs them as plain **file
+> copies** instead — so the script above will remove the main `gstack` folder
+> and `~/.gstack/` state, but leave every individual skill folder behind
+> under `~/.claude/skills/`. If `/` in Claude Code still shows the skills
+> after running the uninstall script, run this afterward to finish the job:
+> ```bash
+> cd ~/.claude/skills
+> for d in */; do
+>   d="${d%/}"
+>   [ "$d" = "gstack" ] && continue
+>   [ -f "$d/SKILL.md" ] && rm -rf "$d"
+> done
+> ```
+> Then fully restart Claude Code Desktop.
+
 ### Option 2: Manual removal (no local repo)
 
 ```bash
