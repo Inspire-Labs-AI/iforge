@@ -87,7 +87,7 @@ Only works in **Git Bash** or **WSL**. On Windows, do not use Command Prompt or 
 rm -rf ~/.claude/skills/gstack ~/'~'
 ```
 
-**Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Renaming it would mean rewriting hundreds of internal references for no user-facing benefit, so we kept it. Both names are correct — this is expected, not a bug.
+**Why the installed folder is named `gstack`, not `iforge`:** the repo is `iforge`, but every skill's internal scripts have `~/.claude/skills/gstack` hardwired into them. Both names are correct — this is expected, not a bug.
 
 ### Team mode — auto-update for shared repos (recommended)
 
